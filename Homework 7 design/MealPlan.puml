@@ -1,0 +1,78 @@
+@startuml
+
+class Client <driver>{
+    +main(args: String[]): void
+}
+
+class Customer{
+    -name: String
+    -diet: String
+    +Customer(name: String, diet:string)
+    +getName(): String
+    +getDiet(): String
+}
+
+class Meal{
+    -carbs: String
+    -protein: String
+    -fats: String
+    +Meal(carbs: String, protein: String, fats: String)
+    +displayMeal(): void
+}
+
+class MacronutrientFactory <singleton>{
+    -instance MacronutrientFactory
+    -MacronutrientFactory()
+    +createCarbsFactory(): FoodFactory
+    +createProteinFactory(): FoodFactory
+    +createFatsFactory(): FoodFactory
+}
+
+class AbstractMacronutrientsFactory <interface>{
+    +createCarbsFactory(): FoodFactory
+    +createProteinFactory(): FoodFactory
+    +createFatsFactory(): FoodFactory
+}
+
+class FoodFactory <interface>{
+    +createFood(diet: String): String
+}
+
+class CarbsFactory <singleton>{
+    -instance CarbsFactory
+    -carbsFactory()
+    +getInstance(): CarbsFactory
+    +createFood(diet: String): String
+}
+
+class ProteinFactory <singleton>{
+    -instance FatsFactory
+    -ProteinFactory()
+    +getInstance(): ProteinFactory
+    +createFood(diet: String): String
+}
+
+class FatsFactory <singleton>{
+    -instance FatsFactory
+    -FatsFactory()
+    +getInstance(): FatsFactory
+    +createFood(diet: String): String
+}
+
+Client ..>/creates Customer
+Client ..>/creates Meal
+Client ..>/uses MacronutrientFactory
+MacronutrientFactory *-- MacronutrientFactory
+AbstractMacronutrientsFactory <|.. MacronutrientFactory
+MacronutrientFactory -->/provides CarbsFactory
+MacronutrientFactory -->/provides ProteinFactory
+MacronutrientFactory -->/provides FatsFactory
+
+FatsFactory *-- FatsFactory
+ProteinFactory *-- ProteinFactory
+CarbsFactory *-- CarbsFactory
+
+FoodFactory <|-- FatsFactory
+FoodFactory <|-- ProteinFactory
+FoodFactory <|-- CarbsFactory
+@enduml

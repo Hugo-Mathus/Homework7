@@ -1,0 +1,29 @@
+@startuml
+Class CLIENT{
+    +main(args: String[]): void
+}
+
+Class Pizza{
+    -chain: String
+    -size: String
+    -toppings: List<String>
+
+    +eat(): void
+    + Pizza(chain: String, size: String, toppings: List<String>)
+}
+
+Class PizzaBuilder{
+    -chain: String
+    -size: String
+    -toppings: List<String>
+    +PizzaBuilder()
+    +setSize(size: String): PizzaBuilder
+    +setChain(chain: String): PizzaBuilder
+    +addTopping(topping: String): PizzaBuilder
+    +createPizza(): Pizza
+
+}
+
+CLIENT ..>/uses PizzaBuilder
+PizzaBuilder ..>/creates Pizza
+@enduml
