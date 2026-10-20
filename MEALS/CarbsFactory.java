@@ -23,6 +23,22 @@ public class CarbsFactory implements FoodFactory{
         }
         else if (diet.equals("Vegan")){
             allowedCarbs.add("Bread");
+            allowedCarbs.add("Lentils");
+            allowedCarbs.add("Pistachio");
+        }
+        else if (diet.equals("Nut Allergy")){
+            allowedCarbs.add("Cheese");
+            allowedCarbs.add("Bread");
+            allowedCarbs.add("Lentils");
+        }
+        else if (diet.equals("No Restriction")) {
+            allowedCarbs.add("Cheese");
+            allowedCarbs.add("Bread");
+            allowedCarbs.add("Lentils");
+            allowedCarbs.add("Pistachio");
+        }
+        else {
+            throw new IllegalArgumentException("Invalid diet plan");
         }
         Random random = new Random();
         int index = random.nextInt(allowedCarbs.size());
